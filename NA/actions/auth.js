@@ -89,7 +89,13 @@ export const signupFields = (email,firstName,lastName,phone,userId) => {
           Phone1:"",
           Phone2:"",
           Phone3:""
-          }
+          },
+          safeWords:{
+          Word1:"",
+          Word2:"",
+          Word3:""
+          },
+          sosFlag: false
        })
     });
   
