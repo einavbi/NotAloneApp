@@ -21,15 +21,72 @@ import * as Speech from 'expo-speech'
 import { Audio } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
-import * as Actions from "../actions/emergencyContact";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import * as Actions from "../actions/safeWords";
 import Voice, {
   SpeechResultsEvent,
   SpeechErrorEvent,
 } from "@react-native-voice/voice";
 
 const SafeWordsScreen = props => {
-  // const [results, setResults] = useState([] as string[]);
-  // const [isListening, setIsListening] = useState(false);
+  const [Data, setData] = useState({
+    Word1:"",
+    Word2:"",
+    Word3:""
+  });
+  const [userId, setUserId] = useState("");
+  const [word1, setWord1] = useState("");
+  const [word2,setWord2 ] = useState("");
+  const [word3, setWord3] = useState("");
+  const [recordFlag1, setRecordFlag1] = useState(false);
+  const [recordFlag2, setRecordFlag2] = useState(false);
+  const [recordFlag3, setRecordFlag3] = useState(false);
+  const updateData =()=>{
+    if(word1=='')
+    {
+      setWord1(Data.Word1)
+    }
+    if(word2=='')
+    {
+      setWord2(Data.Word2)
+    }
+    if(word3=='')
+    {
+      setWord3(Data.Word3)
+    }
+
+  }
+  const getData = async ()=> {
+    const userDatas =await AsyncStorage.getItem('userData');
+    const transformedData = JSON.parse(userDatas);
+    const { token, userId, expiryDate } =  transformedData;
+    setUserId(userId);
+    setData(await Actions.getSafeWords(userId))
+ 
+  };
+  getData();
+  const startRecord1 = async () => {
+    setRecordFlag1(true);
+  }
+  const startRecord2 = async () => {
+    setRecordFlag2(true);
+  }
+  const startRecord3 = async () => {
+    setRecordFlag3(true);
+  }
+  const stopRecord1 = async () => {
+    setRecordFlag1(false);
+  }
+  const stopRecord2 = async () => {
+    setRecordFlag2(false);
+  }
+
+  const stopRecord3 = async () => {
+    setRecordFlag3(false);
+  }
+  const [results, setResults] = useState([] as string[]);
+  const [isListening, setIsListening] = useState(false);
 
   // useEffect(() => {
   //   function onSpeechResults(e: SpeechResultsEvent) {
@@ -59,6 +116,7 @@ const SafeWordsScreen = props => {
   //     console.error(e);
   //   }
   // }
+
  return (
     //<View><Text>Please record up to 3 security words in case of emergency.</Text></View>
    //  <Button title="Speak!" onPress={() => Speech.speak('bla bla bla')} />
@@ -70,64 +128,84 @@ const SafeWordsScreen = props => {
    <Card style={styles.card}>
      <Text></Text>
      <View style={styles.inputCom}>
-     <Ionicons  style={styles.icon}
-                   name={Platform.OS === 'android' ? 'md-mic' : 'ios-mic'}
-               size={23}
-               color={Colors.primary}
-             />
-     <TitleText style={styles.nameAndPhone}>Word 1:</TitleText>
-     <TextInput placeholder={""} onChangeText={() =>{ }} defaultValue={""} style={styles.input}/>
-     </View>
-     <Text></Text>
-     <View style={styles.inputCom}>
-     <Button  title="Save" color={Colors.primary} onPress={() =>{ }}/>
-
-   
-     </View>
-     <Text></Text>
-   </Card>
- 
-   <Card style={styles.card}>
-     <Text></Text>
-     <View style={styles.inputCom}>
-     <Ionicons  style={styles.icon}
-           name={Platform.OS === 'android' ? 'md-mic' : 'ios-mic'}
-               size={23}
-               color={Colors.primary}
-             />
-     <TitleText style={styles.nameAndPhone}>Word 2:</TitleText> 
-     <TextInput placeholder={""} onChangeText={() =>{ }} defaultValue={""} style={styles.input}/>
-     </View>
-     <Text></Text>
-     <View style={styles.inputCom}>
-     <Button  title="Save" color={Colors.primary} onPress={() =>{ }}/>
-
-   
-     </View>
-     <Text></Text>
-   </Card>
- 
-   <Card style={styles.card}>
-     <Text></Text>
-     <View style={styles.inputCom}>
-     <TouchableHighlight onPress={()=>{}}>
+     <TouchableHighlight underlayColor="#DDDDDD" onPress={() =>{recordFlag1=== false? startRecord1(): stopRecord1()}}>
      <View>
      <Ionicons  style={styles.icon}
              name={Platform.OS === 'android' ? 'md-mic' : 'ios-mic'}
-               size={23}
-               color={Colors.primary}
+               size={30}
+               color={recordFlag1 ===false ? Colors.primary : Colors.accent}
              />
-       <Text>hiii</Text>
+       {/* <Text>hiii</Text> */}
      </View>
  </TouchableHighlight>
     
 
      <TitleText style={styles.nameAndPhone}>Word 3:</TitleText> 
-     <TextInput placeholder={""} onChangeText={() =>{ }} defaultValue={""} style={styles.input}/>
+     <TextInput placeholder={Data.Word3} onChangeText={word3 => setWord3(word3)} defaultValue={""} style={styles.input}/>
      </View>
      <Text></Text>
      <View style={styles.inputCom}>
-     <Button  title="Save" color={Colors.primary} onPress={() =>{ }}/>
+     <Button  title="Save" color={Colors.primary} onPress={() =>{  updateData();
+    Actions.addSafeWords(userId,word1,word2,word3);
+    getData();}}/>
+
+   
+     </View>
+     <Text></Text>
+   </Card>
+ 
+   <Card style={styles.card}>
+     <Text></Text>
+     <View style={styles.inputCom}>
+     <TouchableHighlight underlayColor="#DDDDDD" onPress={() =>{recordFlag2=== false? startRecord2(): stopRecord2()}}>
+     <View>
+     <Ionicons  style={styles.icon}
+             name={Platform.OS === 'android' ? 'md-mic' : 'ios-mic'}
+               size={30}
+               color={recordFlag2 ===false ? Colors.primary : Colors.accent}
+             />
+       {/* <Text>hiii</Text> */}
+     </View>
+ </TouchableHighlight>
+    
+
+     <TitleText style={styles.nameAndPhone}>Word 3:</TitleText> 
+     <TextInput placeholder={Data.Word3} onChangeText={word3 => setWord3(word3)} defaultValue={""} style={styles.input}/>
+     </View>
+     <Text></Text>
+     <View style={styles.inputCom}>
+     <Button  title="Save" color={Colors.primary} onPress={() =>{  updateData();
+    Actions.addSafeWords(userId,word1,word2,word3);
+    getData();}}/>
+
+   
+     </View>
+     <Text></Text>
+   </Card>
+ 
+   <Card style={styles.card}>
+     <Text></Text>
+     <View style={styles.inputCom}>
+     <TouchableHighlight underlayColor="#DDDDDD" onPress={() =>{recordFlag3=== false? startRecord3(): stopRecord3()}}>
+     <View>
+     <Ionicons  style={styles.icon}
+             name={Platform.OS === 'android' ? 'md-mic' : 'ios-mic'}
+               size={30}
+               color={recordFlag3 ===false ? Colors.primary : Colors.accent}
+             />
+       {/* <Text>hiii</Text> */}
+     </View>
+ </TouchableHighlight>
+    
+
+     <TitleText style={styles.nameAndPhone}>Word 3:</TitleText> 
+     <TextInput placeholder={Data.Word3} onChangeText={word3 => setWord3(word3)} defaultValue={""} style={styles.input}/>
+     </View>
+     <Text></Text>
+     <View style={styles.inputCom}>
+     <Button title="Save" color={Colors.primary} onPress={() =>{  updateData();
+    Actions.addSafeWords(userId,word1,word2,word3);
+    getData();}}/>
 
    
      </View>
