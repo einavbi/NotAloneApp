@@ -135,13 +135,12 @@ const SafeWordsScreen = props => {
                size={30}
                color={recordFlag1 ===false ? Colors.primary : Colors.accent}
              />
-       {/* <Text>hiii</Text> */}
      </View>
  </TouchableHighlight>
     
 
-     <TitleText style={styles.nameAndPhone}>Word 3:</TitleText> 
-     <TextInput placeholder={Data.Word3} onChangeText={word3 => setWord3(word3)} defaultValue={""} style={styles.input}/>
+     <TitleText style={styles.wordContainer}>  Word 1:  </TitleText> 
+     <TextInput placeholder={Data.Word1} onChangeText={word1 => setWord1(word1)} defaultValue={word1} style={styles.input}/>
      </View>
      <Text></Text>
      <View style={styles.inputCom}>
@@ -164,13 +163,12 @@ const SafeWordsScreen = props => {
                size={30}
                color={recordFlag2 ===false ? Colors.primary : Colors.accent}
              />
-       {/* <Text>hiii</Text> */}
      </View>
  </TouchableHighlight>
     
 
-     <TitleText style={styles.nameAndPhone}>Word 3:</TitleText> 
-     <TextInput placeholder={Data.Word3} onChangeText={word3 => setWord3(word3)} defaultValue={""} style={styles.input}/>
+     <TitleText style={styles.wordContainer}>  Word 2:  </TitleText> 
+     <TextInput placeholder={Data.Word2} onChangeText={word2 => setWord2(word2)} defaultValue={word2} style={styles.input}/>
      </View>
      <Text></Text>
      <View style={styles.inputCom}>
@@ -193,13 +191,12 @@ const SafeWordsScreen = props => {
                size={30}
                color={recordFlag3 ===false ? Colors.primary : Colors.accent}
              />
-       {/* <Text>hiii</Text> */}
      </View>
  </TouchableHighlight>
     
 
-     <TitleText style={styles.nameAndPhone}>Word 3:</TitleText> 
-     <TextInput placeholder={Data.Word3} onChangeText={word3 => setWord3(word3)} defaultValue={""} style={styles.input}/>
+     <TitleText style={styles.wordContainer}>  Word 3:  </TitleText> 
+     <TextInput placeholder={Data.Word3} onChangeText={word3 => setWord3(word3)} defaultValue={word3} style={styles.input}/>
      </View>
      <Text></Text>
      <View style={styles.inputCom}>
@@ -236,7 +233,7 @@ const styles = StyleSheet.create({
        width: '95%'
    
      },
-     nameAndPhone:{
+     wordContainer:{
        fontSize: 19,
        marginLeft:1,
      },
@@ -247,24 +244,11 @@ const styles = StyleSheet.create({
      //width:200
      //  margin: 20
      },
-     input:{  fontSize: 19, width:230},
-     icon:{ marginLeft:20}
-        
+     input:{  fontSize: 19, width: 230},
+     icon:{ marginLeft: 21}
+      
 });
 export default SafeWordsScreen;
 
 
 
-
-{/* <View style={styles.container}> 
-  <Text>Press the button and start speaking.</Text>
-   <Button
-       title={"Start Recognizing"}
-       onPress={()=>{}}
-    />
-      <Text>Results:</Text>
-  
-     
-    </View>
-    
-     </View>    */}
