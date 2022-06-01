@@ -89,17 +89,19 @@ export const signupFields = (email,firstName,lastName,phone,userId) => {
           Phone1:"",
           Phone2:"",
           Phone3:""
+
+          
           },
           safeWords:{
           Word1:"",
           Word2:"",
           Word3:""
           },
-          sosFlag: false
+          sosFlag: false,
+          image:""
        })
     });
   
-  //   profileFields(userId);////////////
     if (!response.ok) {
       const errorResData =  response.json();
       const errorId = errorResData.error.message;
@@ -181,6 +183,7 @@ const setLogoutTimer = expirationTime => {
       dispatch(logout());
     }, expirationTime);
   };
+  
 };
 
 const saveDataToStorage = (token, userId, expirationDate) => {
