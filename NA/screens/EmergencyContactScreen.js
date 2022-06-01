@@ -10,7 +10,7 @@ import {
   StyleSheet,
   Alert
 } from 'react-native';
-import BodyText from '../components/UI/BodyText';
+// import BodyText from '../components/UI/BodyText';
 import TitleText from '../components/UI/TitleText';
 import Card from '../components/UI/Card';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -59,7 +59,7 @@ const EmergencyContactScreen = props => {
     }
   }
   const getData = async ()=> {
-    const userDatas =await AsyncStorage.getItem('userData');
+    const userDatas = await AsyncStorage.getItem('userData');
     const transformedData = JSON.parse(userDatas);
     const { token, userId, expiryDate } =  transformedData;
     setUserId(userId);

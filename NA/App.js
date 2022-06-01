@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-
+import 'expo-dev-client'
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
 import ReduxThunk from 'redux-thunk';
+import firebaseConfig from './firebaseConfig.tsx';
+import { initializeApp  } from 'firebase/app';
+import * as firebase from 'firebase';
+import { LogBox } from 'react-native';
+LogBox.ignoreAllLogs();
+LogBox.ignoreLogs(['Warning: ...']);
 
 
 
 import authReducer from './reducers/auth';
 import AppNavigator from './navigation/AppNavigator';
-
+firebase.initializeApp(firebaseConfig)
 const rootReducer = combineReducers({
 
 
@@ -28,6 +34,7 @@ const fetchFonts = () => {
 };
 
 export default function App() {
+
   const [fontLoaded, setFontLoaded] = useState(false);
 
   if (!fontLoaded) {

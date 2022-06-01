@@ -1,23 +1,35 @@
 {
   "expo": {
-    "name": "NotAloneApp",
-    "slug": "NotAloneApp",
+    "name": "Not Alone",
+    "slug": "NotAlone",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "privacy": "public",
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff",
-      "plugins": [
-        [
-          "expo-facebook",
-          {
-            "userTrackingPermission": false
-          }
-        ]
-      ]
+      "backgroundColor": "#ffffff"
+
     },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ],
+      [
+        "expo-facebook",
+        {
+          "userTrackingPermission": false
+        }
+      ]
+    ],
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -25,17 +37,30 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.einav1997bi.NotAloneApp",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "versionCode": 1,
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "CAMERA",
+        "WRITE_EXTERNAL_STORAGE"
+      ],
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDdnYNBJVOyBoAfT5tquRU_13ye7q9gNDs"
+        }
+      },
+      "package": "com.einav1997bi.NotAlon"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "plugins": [ [ "@react-native-voice/voice", { "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone", "speechRecogntionPermission": "Allow $(PRODUCT_NAME) to securely recognize user speech" } ] ]
+    }
   }
 }

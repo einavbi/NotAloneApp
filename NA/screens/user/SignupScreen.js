@@ -57,7 +57,7 @@ const SignupScreen = props => {
       lastName:'',
       phone:'',
       repassword:''
-
+      
     },
     inputValidities: {
       email: false,
